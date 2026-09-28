@@ -1,112 +1,17 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
+
   <meta charset="UTF-8">
+
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
   <title>LOTFIGRAPHY — Galerie privée</title>
+
   <link rel="stylesheet" href="style.css">
-/* LIGHTBOX */
-.lightbox {
-  display: none;
-  position: fixed;
-  inset: 0;
-  z-index: 9999;
-  background: rgba(0, 0, 0, 0.96);
-  align-items: center;
-  justify-content: center;
-  padding: 20px;
-}
-
-.lightbox.active {
-  display: flex;
-}
-
-.lightbox img {
-  max-width: 92vw;
-  max-height: 88vh;
-  width: auto;
-  height: auto;
-  object-fit: contain;
-}
-
-.lightbox-close {
-  position: fixed;
-  top: 20px;
-  right: 25px;
-  font-size: 38px;
-  color: white;
-  cursor: pointer;
-  z-index: 10001;
-  line-height: 1;
-}
-
-.lightbox-btn {
-  position: fixed;
-  top: 50%;
-  transform: translateY(-50%);
-  width: 48px;
-  height: 48px;
-  border: 1px solid rgba(255,255,255,.3);
-  background: rgba(0,0,0,.5);
-  color: white;
-  border-radius: 50%;
-  font-size: 28px;
-  cursor: pointer;
-  z-index: 10000;
-}
-
-.lightbox-prev {
-  left: 20px;
-}
-
-.lightbox-next {
-  right: 20px;
-}
-
-.lightbox-download {
-  position: fixed;
-  bottom: 25px;
-  left: 50%;
-  transform: translateX(-50%);
-  background: var(--gold);
-  color: #111;
-  padding: 12px 24px;
-  text-decoration: none;
-  font-weight: 600;
-  border-radius: 4px;
-  z-index: 10001;
-}
-
-.event-gallery img {
-  cursor: pointer;
-  transition: transform .25s ease, opacity .25s ease;
-}
-
-.event-gallery img:hover {
-  opacity: .85;
-}
-
-@media (max-width: 800px) {
-  .lightbox img {
-    max-width: 94vw;
-    max-height: 80vh;
-  }
-
-  .lightbox-btn {
-    width: 42px;
-    height: 42px;
-  }
-
-  .lightbox-prev {
-    left: 10px;
-  }
-
-  .lightbox-next {
-    right: 10px;
-  }
-}
 
   <style>
+
     .private-gallery-page {
       min-height: 100vh;
       padding: 130px 7vw 80px;
@@ -124,11 +29,6 @@
       font-weight: 500;
       line-height: 1.05;
       margin: 18px 0;
-    }
-
-    .private-gallery-head h1 em {
-      font-family: 'Playfair Display', serif;
-      color: var(--gold);
     }
 
     .private-gallery-head p {
@@ -149,6 +49,12 @@
       height: 390px;
       object-fit: cover;
       display: block;
+      cursor: pointer;
+      transition: opacity .25s ease;
+    }
+
+    .event-gallery img:hover {
+      opacity: .85;
     }
 
     .private-message {
@@ -176,7 +82,85 @@
       color: var(--gold);
     }
 
+    /* =========================
+       LIGHTBOX
+    ========================= */
+
+    .lightbox {
+      display: none;
+      position: fixed;
+      inset: 0;
+      z-index: 99999;
+      background: rgba(0, 0, 0, 0.96);
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+
+    .lightbox.active {
+      display: flex;
+    }
+
+    .lightbox img {
+      max-width: 92vw;
+      max-height: 82vh;
+      width: auto;
+      height: auto;
+      object-fit: contain;
+    }
+
+    .lightbox-close {
+      position: fixed;
+      top: 18px;
+      right: 22px;
+      border: 0;
+      background: none;
+      color: white;
+      font-size: 42px;
+      cursor: pointer;
+      z-index: 100001;
+      line-height: 1;
+    }
+
+    .lightbox-btn {
+      position: fixed;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 50px;
+      height: 50px;
+      border: 1px solid rgba(255,255,255,.3);
+      background: rgba(0,0,0,.55);
+      color: white;
+      border-radius: 50%;
+      font-size: 32px;
+      cursor: pointer;
+      z-index: 100000;
+    }
+
+    .lightbox-prev {
+      left: 20px;
+    }
+
+    .lightbox-next {
+      right: 20px;
+    }
+
+    .lightbox-download {
+      position: fixed;
+      bottom: 22px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: var(--gold);
+      color: #111;
+      padding: 12px 24px;
+      text-decoration: none;
+      font-weight: 600;
+      border-radius: 5px;
+      z-index: 100001;
+    }
+
     @media (max-width: 800px) {
+
       .event-gallery {
         grid-template-columns: repeat(2, 1fr);
       }
@@ -184,23 +168,92 @@
       .event-gallery img {
         height: 260px;
       }
+
+      .lightbox img {
+        max-width: 94vw;
+        max-height: 78vh;
+      }
+
+      .lightbox-btn {
+        width: 42px;
+        height: 42px;
+        font-size: 27px;
+      }
+
+      .lightbox-prev {
+        left: 8px;
+      }
+
+      .lightbox-next {
+        right: 8px;
+      }
+
     }
+
   </style>
+
 </head>
+
+<body>
+
+<header class="navbar">
+
+  <a class="brand" href="index.html">
+
+    <img
+      src="assets/logo.jpeg"
+      alt="LOTFIGRAPHY logo"
+    >
+
+    <span>LOTFIGRAPHY</span>
+
+  </a>
+
+  <a href="index.html">
+    Accueil
+  </a>
+
+</header>
+
+
+<main class="private-gallery-page">
+
+  <div id="galleryContent"></div>
+
+</main>
+
+
 <!-- LIGHTBOX -->
+
 <div class="lightbox" id="lightbox">
 
-  <button class="lightbox-close" id="lightboxClose">
+  <button
+    class="lightbox-close"
+    id="lightboxClose"
+    aria-label="Fermer"
+  >
     ×
   </button>
 
-  <button class="lightbox-btn lightbox-prev" id="lightboxPrev">
+  <button
+    class="lightbox-btn lightbox-prev"
+    id="lightboxPrev"
+    aria-label="Photo précédente"
+  >
     ‹
   </button>
 
-  <img id="lightboxImage" src="" alt="Photo LOTFIGRAPHY">
+  <img
+    id="lightboxImage"
+    src=""
+    alt="Photo LOTFIGRAPHY"
+  >
 
-  <button class="lightbox-btn lightbox-next" id="lightboxNext">
+  <button
+    class="lightbox-btn lightbox-next"
+    id="lightboxNext"
+    aria-label="Photo suivante"
+  >
     ›
   </button>
 
@@ -215,163 +268,58 @@
 
 </div>
 
-<script>
-
-const lightbox = document.getElementById("lightbox");
-const lightboxImage = document.getElementById("lightboxImage");
-const lightboxDownload = document.getElementById("lightboxDownload");
-
-const closeBtn = document.getElementById("lightboxClose");
-const prevBtn = document.getElementById("lightboxPrev");
-const nextBtn = document.getElementById("lightboxNext");
-
-let currentPhoto = 0;
-
-const galleryImages = Array.from(
-  document.querySelectorAll(".event-gallery img")
-);
-
-function showPhoto(index) {
-
-  if (!galleryImages.length) return;
-
-  currentPhoto =
-    (index + galleryImages.length) %
-    galleryImages.length;
-
-  const src =
-    galleryImages[currentPhoto].getAttribute("src");
-
-  lightboxImage.src = src;
-
-  lightboxDownload.href = src;
-
-  lightbox.classList.add("active");
-
-  document.body.style.overflow = "hidden";
-}
-
-function closeLightbox() {
-
-  lightbox.classList.remove("active");
-
-  document.body.style.overflow = "";
-
-  lightboxImage.src = "";
-}
-
-function nextPhoto() {
-  showPhoto(currentPhoto + 1);
-}
-
-function previousPhoto() {
-  showPhoto(currentPhoto - 1);
-}
-
-galleryImages.forEach((image, index) => {
-
-  image.addEventListener("click", () => {
-    showPhoto(index);
-  });
-
-});
-
-closeBtn.addEventListener("click", closeLightbox);
-
-nextBtn.addEventListener("click", nextPhoto);
-
-prevBtn.addEventListener("click", previousPhoto);
-
-lightbox.addEventListener("click", (e) => {
-
-  if (e.target === lightbox) {
-    closeLightbox();
-  }
-
-});
-
-document.addEventListener("keydown", (e) => {
-
-  if (!lightbox.classList.contains("active")) return;
-
-  if (e.key === "Escape") {
-    closeLightbox();
-  }
-
-  if (e.key === "ArrowRight") {
-    nextPhoto();
-  }
-
-  if (e.key === "ArrowLeft") {
-    previousPhoto();
-  }
-
-});
-
-</script>
-<body>
-
-<header class="navbar">
-  <a class="brand" href="index.html">
-    <img src="assets/logo.jpeg" alt="LOTFIGRAPHY logo">
-    <span>LOTFIGRAPHY</span>
-  </a>
-
-  <a href="index.html">Accueil</a>
-</header>
-
-<main class="private-gallery-page">
-
-  <div id="galleryContent"></div>
-
-</main>
 
 <script>
 
 const events = {
 
   demo: {
+
     title: "Galerie de votre événement",
+
     subtitle: "LOTFIGRAPHY",
 
     photos: [
-  "001.jpg",
-  "002.jpg",
-  "003.jpg",
-  "004.jpg",
-  "005.jpg",
-  "006.jpg",
-  "007.jpg",
-  "008.jpg",
-  "009.jpg",
-  "010.jpg",
-  "011.jpg",
-  "012.jpg",
-  "013.jpg",
-  "014.jpg",
-  "015.jpg",
-  "016.jpg",
-  "017.jpg",
-  "018.jpg",
-  "019.jpg",
-  "020.jpg",
-  "021.jpg",
-  "022.jpg",
-  "023.jpg",
-  "024.jpg",
-  "025.jpg",
-  "026.jpg",
-  "027.jpg",
-  "028.jpg"
-      
+      "001.jpg",
+      "002.jpg",
+      "003.jpg",
+      "004.jpg",
+      "005.jpg",
+      "006.jpg",
+      "007.jpg",
+      "008.jpg",
+      "009.jpg",
+      "010.jpg",
+      "011.jpg",
+      "012.jpg",
+      "013.jpg",
+      "014.jpg",
+      "015.jpg",
+      "016.jpg",
+      "017.jpg",
+      "018.jpg",
+      "019.jpg",
+      "020.jpg",
+      "021.jpg",
+      "022.jpg",
+      "023.jpg",
+      "024.jpg",
+      "025.jpg",
+      "026.jpg",
+      "027.jpg",
+      "028.jpg"
     ]
+
   }
 
 };
 
 
 const eventId =
-  new URLSearchParams(window.location.search).get("event");
+  new URLSearchParams(
+    window.location.search
+  ).get("event");
+
 
 const content =
   document.getElementById("galleryContent");
@@ -396,7 +344,10 @@ if (!eventId || !events[eventId]) {
         avec le QR code fourni par LOTFIGRAPHY.
       </p>
 
-      <a class="back-home" href="index.html">
+      <a
+        class="back-home"
+        href="index.html"
+      >
         ← Retour à l'accueil
       </a>
 
@@ -445,116 +396,193 @@ if (!eventId || !events[eventId]) {
 
 }
 
-</script>
-<!-- LIGHTBOX -->
-<div class="lightbox" id="lightbox">
 
-  <button class="lightbox-close" id="lightboxClose">×</button>
+/* =========================
+   LIGHTBOX JAVASCRIPT
+========================= */
 
-  <button class="lightbox-btn lightbox-prev" id="lightboxPrev">‹</button>
+const lightbox =
+  document.getElementById("lightbox");
 
-  <img id="lightboxImage" src="" alt="Photo LOTFIGRAPHY">
+const lightboxImage =
+  document.getElementById("lightboxImage");
 
-  <button class="lightbox-btn lightbox-next" id="lightboxNext">›</button>
+const lightboxDownload =
+  document.getElementById("lightboxDownload");
 
-  <a
-    id="lightboxDownload"
-    class="lightbox-download"
-    href=""
-    download
-  >
-    ↓ Télécharger
-  </a>
+const closeBtn =
+  document.getElementById("lightboxClose");
 
-</div>
+const prevBtn =
+  document.getElementById("lightboxPrev");
 
-<script>
-const lightbox = document.getElementById("lightbox");
-const lightboxImage = document.getElementById("lightboxImage");
-const lightboxDownload = document.getElementById("lightboxDownload");
+const nextBtn =
+  document.getElementById("lightboxNext");
 
-const closeBtn = document.getElementById("lightboxClose");
-const prevBtn = document.getElementById("lightboxPrev");
-const nextBtn = document.getElementById("lightboxNext");
 
 let currentPhoto = 0;
 
+
 function getGalleryImages() {
+
   return Array.from(
-    document.querySelectorAll(".event-gallery img")
+    document.querySelectorAll(
+      ".event-gallery img"
+    )
   );
+
 }
 
+
 function showPhoto(index) {
-  const images = getGalleryImages();
+
+  const images =
+    getGalleryImages();
 
   if (!images.length) return;
 
   currentPhoto =
-    (index + images.length) % images.length;
+    (index + images.length) %
+    images.length;
 
-  const src = images[currentPhoto].src;
+  const src =
+    images[currentPhoto].src;
 
   lightboxImage.src = src;
+
   lightboxDownload.href = src;
 
   lightbox.classList.add("active");
-  document.body.style.overflow = "hidden";
+
+  document.body.style.overflow =
+    "hidden";
+
 }
+
 
 function closeLightbox() {
+
   lightbox.classList.remove("active");
+
   lightboxImage.src = "";
-  document.body.style.overflow = "";
+
+  document.body.style.overflow =
+    "";
+
 }
+
 
 function nextPhoto() {
-  showPhoto(currentPhoto + 1);
+
+  showPhoto(
+    currentPhoto + 1
+  );
+
 }
+
 
 function previousPhoto() {
-  showPhoto(currentPhoto - 1);
+
+  showPhoto(
+    currentPhoto - 1
+  );
+
 }
 
-document.addEventListener("click", function(e) {
 
-  const image = e.target.closest(".event-gallery img");
+/* CLICK SUR PHOTO */
 
-  if (image) {
-    const images = getGalleryImages();
-    const index = images.indexOf(image);
+document.addEventListener(
+  "click",
+  function(e) {
+
+    const image =
+      e.target.closest(
+        ".event-gallery img"
+      );
+
+    if (!image) return;
+
+    const images =
+      getGalleryImages();
+
+    const index =
+      images.indexOf(image);
+
     showPhoto(index);
+
   }
+);
 
-});
 
-closeBtn.addEventListener("click", closeLightbox);
-nextBtn.addEventListener("click", nextPhoto);
-prevBtn.addEventListener("click", previousPhoto);
+/* BOUTONS */
 
-lightbox.addEventListener("click", function(e) {
-  if (e.target === lightbox) {
-    closeLightbox();
+closeBtn.addEventListener(
+  "click",
+  closeLightbox
+);
+
+nextBtn.addEventListener(
+  "click",
+  nextPhoto
+);
+
+prevBtn.addEventListener(
+  "click",
+  previousPhoto
+);
+
+
+/* CLICK SUR FOND */
+
+lightbox.addEventListener(
+  "click",
+  function(e) {
+
+    if (e.target === lightbox) {
+
+      closeLightbox();
+
+    }
+
   }
-});
+);
 
-document.addEventListener("keydown", function(e) {
 
-  if (!lightbox.classList.contains("active")) return;
+/* CLAVIER */
 
-  if (e.key === "Escape") {
-    closeLightbox();
+document.addEventListener(
+  "keydown",
+  function(e) {
+
+    if (
+      !lightbox.classList.contains(
+        "active"
+      )
+    ) return;
+
+    if (e.key === "Escape") {
+
+      closeLightbox();
+
+    }
+
+    if (e.key === "ArrowRight") {
+
+      nextPhoto();
+
+    }
+
+    if (e.key === "ArrowLeft") {
+
+      previousPhoto();
+
+    }
+
   }
+);
 
-  if (e.key === "ArrowRight") {
-    nextPhoto();
-  }
-
-  if (e.key === "ArrowLeft") {
-    previousPhoto();
-  }
-
-});
 </script>
+
 </body>
 </html>
