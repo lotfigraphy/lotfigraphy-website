@@ -105,6 +105,7 @@
     right: 10px;
   }
 }
+
   <style>
     .private-gallery-page {
       min-height: 100vh;
@@ -445,6 +446,115 @@ if (!eventId || !events[eventId]) {
 }
 
 </script>
+<!-- LIGHTBOX -->
+<div class="lightbox" id="lightbox">
 
+  <button class="lightbox-close" id="lightboxClose">×</button>
+
+  <button class="lightbox-btn lightbox-prev" id="lightboxPrev">‹</button>
+
+  <img id="lightboxImage" src="" alt="Photo LOTFIGRAPHY">
+
+  <button class="lightbox-btn lightbox-next" id="lightboxNext">›</button>
+
+  <a
+    id="lightboxDownload"
+    class="lightbox-download"
+    href=""
+    download
+  >
+    ↓ Télécharger
+  </a>
+
+</div>
+
+<script>
+const lightbox = document.getElementById("lightbox");
+const lightboxImage = document.getElementById("lightboxImage");
+const lightboxDownload = document.getElementById("lightboxDownload");
+
+const closeBtn = document.getElementById("lightboxClose");
+const prevBtn = document.getElementById("lightboxPrev");
+const nextBtn = document.getElementById("lightboxNext");
+
+let currentPhoto = 0;
+
+function getGalleryImages() {
+  return Array.from(
+    document.querySelectorAll(".event-gallery img")
+  );
+}
+
+function showPhoto(index) {
+  const images = getGalleryImages();
+
+  if (!images.length) return;
+
+  currentPhoto =
+    (index + images.length) % images.length;
+
+  const src = images[currentPhoto].src;
+
+  lightboxImage.src = src;
+  lightboxDownload.href = src;
+
+  lightbox.classList.add("active");
+  document.body.style.overflow = "hidden";
+}
+
+function closeLightbox() {
+  lightbox.classList.remove("active");
+  lightboxImage.src = "";
+  document.body.style.overflow = "";
+}
+
+function nextPhoto() {
+  showPhoto(currentPhoto + 1);
+}
+
+function previousPhoto() {
+  showPhoto(currentPhoto - 1);
+}
+
+document.addEventListener("click", function(e) {
+
+  const image = e.target.closest(".event-gallery img");
+
+  if (image) {
+    const images = getGalleryImages();
+    const index = images.indexOf(image);
+    showPhoto(index);
+  }
+
+});
+
+closeBtn.addEventListener("click", closeLightbox);
+nextBtn.addEventListener("click", nextPhoto);
+prevBtn.addEventListener("click", previousPhoto);
+
+lightbox.addEventListener("click", function(e) {
+  if (e.target === lightbox) {
+    closeLightbox();
+  }
+});
+
+document.addEventListener("keydown", function(e) {
+
+  if (!lightbox.classList.contains("active")) return;
+
+  if (e.key === "Escape") {
+    closeLightbox();
+  }
+
+  if (e.key === "ArrowRight") {
+    nextPhoto();
+  }
+
+  if (e.key === "ArrowLeft") {
+    previousPhoto();
+  }
+
+});
+</script>
 </body>
 </html>
