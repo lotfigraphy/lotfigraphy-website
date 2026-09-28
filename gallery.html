@@ -186,7 +186,128 @@
     }
   </style>
 </head>
+<!-- LIGHTBOX -->
+<div class="lightbox" id="lightbox">
 
+  <button class="lightbox-close" id="lightboxClose">
+    ×
+  </button>
+
+  <button class="lightbox-btn lightbox-prev" id="lightboxPrev">
+    ‹
+  </button>
+
+  <img id="lightboxImage" src="" alt="Photo LOTFIGRAPHY">
+
+  <button class="lightbox-btn lightbox-next" id="lightboxNext">
+    ›
+  </button>
+
+  <a
+    id="lightboxDownload"
+    class="lightbox-download"
+    href=""
+    download
+  >
+    ↓ Télécharger
+  </a>
+
+</div>
+
+<script>
+
+const lightbox = document.getElementById("lightbox");
+const lightboxImage = document.getElementById("lightboxImage");
+const lightboxDownload = document.getElementById("lightboxDownload");
+
+const closeBtn = document.getElementById("lightboxClose");
+const prevBtn = document.getElementById("lightboxPrev");
+const nextBtn = document.getElementById("lightboxNext");
+
+let currentPhoto = 0;
+
+const galleryImages = Array.from(
+  document.querySelectorAll(".event-gallery img")
+);
+
+function showPhoto(index) {
+
+  if (!galleryImages.length) return;
+
+  currentPhoto =
+    (index + galleryImages.length) %
+    galleryImages.length;
+
+  const src =
+    galleryImages[currentPhoto].getAttribute("src");
+
+  lightboxImage.src = src;
+
+  lightboxDownload.href = src;
+
+  lightbox.classList.add("active");
+
+  document.body.style.overflow = "hidden";
+}
+
+function closeLightbox() {
+
+  lightbox.classList.remove("active");
+
+  document.body.style.overflow = "";
+
+  lightboxImage.src = "";
+}
+
+function nextPhoto() {
+  showPhoto(currentPhoto + 1);
+}
+
+function previousPhoto() {
+  showPhoto(currentPhoto - 1);
+}
+
+galleryImages.forEach((image, index) => {
+
+  image.addEventListener("click", () => {
+    showPhoto(index);
+  });
+
+});
+
+closeBtn.addEventListener("click", closeLightbox);
+
+nextBtn.addEventListener("click", nextPhoto);
+
+prevBtn.addEventListener("click", previousPhoto);
+
+lightbox.addEventListener("click", (e) => {
+
+  if (e.target === lightbox) {
+    closeLightbox();
+  }
+
+});
+
+document.addEventListener("keydown", (e) => {
+
+  if (!lightbox.classList.contains("active")) return;
+
+  if (e.key === "Escape") {
+    closeLightbox();
+  }
+
+  if (e.key === "ArrowRight") {
+    nextPhoto();
+  }
+
+  if (e.key === "ArrowLeft") {
+    previousPhoto();
+  }
+
+});
+
+</script>
 <body>
 
 <header class="navbar">
