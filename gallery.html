@@ -95,6 +95,7 @@
       align-items: center;
       justify-content: center;
       padding: 20px;
+      overflow: hidden;
     }
 
     .lightbox.active {
@@ -107,6 +108,15 @@
       width: auto;
       height: auto;
       object-fit: contain;
+      touch-action: pan-y;
+      cursor: zoom-in;
+      transition: transform .25s ease;
+    }
+
+    .lightbox img.zoomed {
+      transform: scale(2);
+      cursor: zoom-out;
+      touch-action: none;
     }
 
     .lightbox-close {
@@ -273,8 +283,9 @@
 
 const events = {
 
-"chaimae-mimoun": {
-  title: "CHAIMAE & MIMOUN",
+  "chaimae-mimoun": {
+
+    title: "CHAIMAE & MIMOUN",
 
     subtitle: "LOTFIGRAPHY",
 
@@ -421,6 +432,10 @@ const nextBtn =
 
 let currentPhoto = 0;
 
+let touchStartX = 0;
+let touchStartY = 0;
+let touchMoved = false;
+
 
 function getGalleryImages() {
 
@@ -451,6 +466,8 @@ function showPhoto(index) {
 
   lightboxDownload.href = src;
 
+  lightboxImage.classList.remove("zoomed");
+
   lightbox.classList.add("active");
 
   document.body.style.overflow =
@@ -462,6 +479,8 @@ function showPhoto(index) {
 function closeLightbox() {
 
   lightbox.classList.remove("active");
+
+  lightboxImage.classList.remove("zoomed");
 
   lightboxImage.src = "";
 
@@ -511,6 +530,126 @@ document.addEventListener(
     showPhoto(index);
 
   }
+);
+
+
+/* DOUBLE TAP / DOUBLE CLICK = ZOOM */
+
+lightboxImage.addEventListener(
+  "dblclick",
+  function(e) {
+
+    e.preventDefault();
+
+    lightboxImage.classList.toggle(
+      "zoomed"
+    );
+
+  }
+);
+
+
+/* SWIPE MOBILE */
+
+lightbox.addEventListener(
+  "touchstart",
+  function(e) {
+
+    if (
+      lightboxImage.classList.contains(
+        "zoomed"
+      )
+    ) return;
+
+    const touch =
+      e.changedTouches[0];
+
+    touchStartX =
+      touch.clientX;
+
+    touchStartY =
+      touch.clientY;
+
+    touchMoved = false;
+
+  },
+  { passive: true }
+);
+
+
+lightbox.addEventListener(
+  "touchmove",
+  function(e) {
+
+    if (
+      lightboxImage.classList.contains(
+        "zoomed"
+      )
+    ) return;
+
+    const touch =
+      e.changedTouches[0];
+
+    const dx =
+      Math.abs(
+        touch.clientX - touchStartX
+      );
+
+    const dy =
+      Math.abs(
+        touch.clientY - touchStartY
+      );
+
+    if (dx > 10 || dy > 10) {
+
+      touchMoved = true;
+
+    }
+
+  },
+  { passive: true }
+);
+
+
+lightbox.addEventListener(
+  "touchend",
+  function(e) {
+
+    if (
+      lightboxImage.classList.contains(
+        "zoomed"
+      )
+    ) return;
+
+    const touch =
+      e.changedTouches[0];
+
+    const diffX =
+      touch.clientX - touchStartX;
+
+    const diffY =
+      touch.clientY - touchStartY;
+
+    if (
+      touchMoved &&
+      Math.abs(diffX) > 60 &&
+      Math.abs(diffX) > Math.abs(diffY)
+    ) {
+
+      if (diffX < 0) {
+
+        nextPhoto();
+
+      } else {
+
+        previousPhoto();
+
+      }
+
+    }
+
+  },
+  { passive: true }
 );
 
 
